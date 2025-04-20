@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Service Zentrum</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef4f9;
+      color: #333;
+    }
+    header {
+      background: #0066cc;
+      color: #fff;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin-top: 10px;
+    }
+    nav ul li {
+      margin: 0 20px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffdd57;
+    }
+    #hero {
+      background: linear-gradient(to right, #66a6ff, #89f7fe);
+      color: #000;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    #hero h2 {
+      font-size: 2.8em;
+    }
+    #hero p {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    #hero button {
+      margin-top: 25px;
+      padding: 12px 30px;
+      background: #ffdd57;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    #hero button:hover {
+      transform: scale(1.05);
+    }
+    section {
+      padding: 60px 20px;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2em;
+      color: #222;
+    }
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+    .service-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-left: 6px solid #ffdd57;
+      transition: transform 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    .service-card::before {
+      content: "🛠️";
+      font-size: 2em;
+      display: block;
+      margin-bottom: 10px;
+    }
+    #upload {
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+    #preview {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #preview img {
+      max-width: 200px;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+      margin: auto;
+    }
+    form input, form select, form textarea {
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      padding: 12px;
+      font-size: 1em;
+      background: #66a6ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #558de8;
+    }
+    #formSuccess {
+      text-align: center;
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+    footer {
+      background: #0066cc;
+      color: #fff;
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 0.9em;
+      position: relative;
+    }
+    footer::after {
+      content: "🔧 Folge uns auf Instagram & Facebook";
+      display: block;
+      margin-top: 10px;
+      font-size: 0.8em;
+      color: #ddeeff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Auto Service Zentrum</h1>
+    <nav>
+      <ul>
+        <li><a href="#services">Dienstleistungen</a></li>
+        <li><a href="#gallery">Galerie</a></li>
+        <li><a href="#appointment">Termin Anfragen</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <section id="hero">
+    <h2>Professioneller Auto-Service in der Schweiz</h2>
+    <p>Reifenwechsel, Lackierung, Felgenverkauf, chemische Reinigung & mehr</p>
+    <button onclick="document.getElementById('appointment').scrollIntoView()">Jetzt Termin anfragen</button>
+  </section>
+
+  <section id="services">
+    <h2>Dienstleistungen</h2>
+    <div class="service-list">
+      <div class="service-card">Reifenwechsel</div>
+      <div class="service-card">Lackierung & Polieren</div>
+      <div class="service-card">Foliendesign & Beklebung</div>
+      <div class="service-card">Felgenverkauf & -montage</div>
+      <div class="service-card">Chemische Reinigung</div>
+      <div class="service-card">Detaillierte Autopflege</div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>Galerie</h2>
+    <input type="file" id="upload" multiple accept="image/*" />
+    <div id="preview"></div>
+  </section>
+
+  <section id="appointment">
+    <h2>Termin Anfragen</h2>
+    <form id="appointmentForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="email">E-Mail:</label>
+      <input type="email" id="email" required />
+
+      <label for="service">Gewünschte Dienstleistung:</label>
+      <select id="service" required>
+        <option value="Reifenwechsel">Reifenwechsel</option>
+        <option value="Lackierung">Lackierung</option>
+        <option value="Folie">Folie & Beklebung</option>
+        <option value="Felgen">Felgenverkauf</option>
+        <option value="Chemische Reinigung">Chemische Reinigung</option>
+        <option value="Detailpflege">Detailpflege</option>
+      </select>
+
+      <label for="message">Zusätzliche Informationen:</label>
+      <textarea id="message"></textarea>
+
+      <button type="submit">Termin anfragen</button>
+    </form>
+    <div id="formSuccess" style="display:none; color:green;">Anfrage erfolgreich gesendet!</div>
+  </section>
+
+  <section id="contact">
+    <h2>Kontakt</h2>
+    <p>Email: info@autoservice.ch</p>
+    <p>Telefon: +41 79 000 00 00</p>
+    <p>Adresse: Musterstrasse 1, 8000 Zürich</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Auto Service Zentrum. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script>
+    // Upload Preview
+    document.getElementById('upload').addEventListener('change', function(e) {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+      for (const file of e.target.files) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = document.createElement('img');
+          img.src = evt.target.result;
+          preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Appointment Submit
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simple validation simulation
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
