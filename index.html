@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Auto Service Zentrum</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("Fz-JRXoHJOyX_A8Kg"); // Zëvendësoje me public key nga EmailJS
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -152,6 +158,13 @@
       color: green;
       font-weight: bold;
     }
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
     footer {
       background: #0066cc;
       color: #fff;
@@ -166,6 +179,21 @@
       margin-top: 10px;
       font-size: 0.8em;
       color: #ddeeff;
+    }
+    #whatsappButton {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      z-index: 1001;
     }
   </style>
 </head>
@@ -209,14 +237,14 @@
   <section id="appointment">
     <h2>Termin Anfragen</h2>
     <form id="appointmentForm">
-      <label for="name">Name:</label>
-      <input type="text" id="name" required />
-
-      <label for="email">E-Mail:</label>
-      <input type="email" id="email" required />
-
+      <label for="user_name">Name:</label>
+      <input type="text" id="name" name="user_name" required />
+  
+      <label for="user_email">E-Mail:</label>
+      <input type="email" id="email" name="user_email" required />
+  
       <label for="service">Gewünschte Dienstleistung:</label>
-      <select id="service" required>
+      <select id="service" name="service" required>
         <option value="Reifenwechsel">Reifenwechsel</option>
         <option value="Lackierung">Lackierung</option>
         <option value="Folie">Folie & Beklebung</option>
@@ -224,12 +252,14 @@
         <option value="Chemische Reinigung">Chemische Reinigung</option>
         <option value="Detailpflege">Detailpflege</option>
       </select>
-
+  
       <label for="message">Zusätzliche Informationen:</label>
-      <textarea id="message"></textarea>
-
+      <textarea id="message" name="message"></textarea>
+  
       <button type="submit">Termin anfragen</button>
     </form>
+  </section>
+  
     <div id="formSuccess" style="display:none; color:green;">Anfrage erfolgreich gesendet!</div>
   </section>
 
@@ -238,11 +268,18 @@
     <p>Email: info@autoservice.ch</p>
     <p>Telefon: +41 79 000 00 00</p>
     <p>Adresse: Musterstrasse 1, 8000 Zürich</p>
+    <div id="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.8468971913734!2d8.541694315859042!3d47.376886979170774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900a096d883b45%3A0x8706944fa22b3f5!2sZ%C3%BCrich%2C%20Switzerland!5e0!3m2!1sen!2sch!4v1615300000000"
+        width="100%" height="400" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
   </section>
 
   <footer>
     <p>&copy; 2025 Auto Service Zentrum. Alle Rechte vorbehalten.</p>
   </footer>
+
+  <button id="whatsappButton" title="Chat mit uns" onclick="openWhatsApp()">💬</button>
 
   <script>
     // Upload Preview
@@ -263,10 +300,26 @@
     // Appointment Submit
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
+
+      emailjs.sendForm('service_t548gwi', 'template_2ftqmw6', this)
+      .then(function() {
+        alert("Termin-Anfrage erfolgreich gesendet!");
+        form.reset();
+      }, function(error) {
+        alert("Fehler beim Senden: " + JSON.stringify(error));
+      });
       // Simple validation simulation
       document.getElementById('formSuccess').style.display = 'block';
       this.reset();
     });
+
+    function openWhatsApp() {
+      const name = document.getElementById("clientName")?.value || "";
+      const service = document.getElementById("clientService")?.value || "einen Service";
+      const message = encodeURIComponent(`Hallo, ich möchte gerne einen Termin für ${service} vereinbaren.`);
+      const phone = "41763681011"; // zëvendëso me numrin tënd real
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    }
   </script>
 </body>
 </html>
